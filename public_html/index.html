@@ -11,10 +11,14 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>BANCA TSS</div>
+        <div id="div_banca">BANCA TSS conto corrente di <span id="sp_nome"></span></div>
         <br/>
+        <input type="text" id="in_nome" value="" placeholder="ins. cognome e nome" />
+        <button id="bt_login" onclick="inserisciNome()">
+                Login
+        </button>
         <div id="div_saldo">Saldo corrente: <span id="sp_saldo">0</span> €</div>
-        
+
         <!-- Versamenti -->
         <div class="versamenti"> 
             <h3>VERSAMENTI</h3>
@@ -23,7 +27,7 @@ and open the template in the editor.
                 Versa Importo
             </button>
         </div>  
-        
+
         <!-- Prelievi-->
         <div class="prelievi"> 
             <h3>PRELIEVI</h3>
@@ -32,7 +36,7 @@ and open the template in the editor.
                 Preleva Importo
             </button>
         </div>    
-        
+
         <div id="div_notifiche" >area notifiche: <span id="sp_notif">nulla da segnalare</span></div>
         <div id="div_mov">
             <h3>MOVIMENTI</h3>
@@ -53,53 +57,107 @@ and open the template in the editor.
     </body>
 </html>
 <script>
+
+    function  versaImporto() {
+
+        //se in in_vers c'è qualcosa di errato non fare niente ed avvertire
+
+        /* sintassi IF    
+         if (condizione) {
+         // cosa fare se vero
+         }
+         else {
+         // cosa fare se falso
+         }
+         */
+
+        //metto la frase ad esempio "123" dentro a saldo_current
+        var txsaldo_current = document.getElementById("sp_saldo").innerHTML;
+
+        //metto la frase ad esempio "123" dentro a importo_current
+        var tximporto_current = document.getElementById("in_vers").value;
+
+        //per trasformare il testo in numero si può moltiplicare "*" ad esempio
+        //saldo_current=saldo_current*1
+        var saldo = parseFloat(txsaldo_current);
+
+        if (isNaN(tximporto_current)) {
+            alert("non hai scritto un numero, riprova!");
+            
+        } else {
+            var importo = parseFloat(tximporto_current);
+            if (importo > 0) {
+
+                //sommo due numeri (e non testi)
+                var nuovo_saldo = saldo + importo;
+                //vado a scrivere sulla pagina web il saldo
+                document.getElementById("sp_saldo").innerHTML = nuovo_saldo;
+                //cancello il valore inserito nella casella versamenti
+
+                //costruisco la lista movimenti nella tabella, prelevo l'attuale contenuto della cella td_vers 
+                //successivamente concateno a quello che c'era il valore versato e un tag di andata a capo <br/>
+                var txtd_vers = document.getElementById("td_vers").innerHTML;
+                txtd_vers = txtd_vers + tximporto_current + "<br/>";
+                document.getElementById("td_vers").innerHTML = txtd_vers;
+                //costruisco la lista movimenti nella tabella, prelevo l'attuale contenuto della cella td_prev 
+                //successivamente concateno a quello che c'era il "-" e un tag di andata a capo <br/>
+                var txtd_prev = document.getElementById("td_prev").innerHTML;
+                txtd_prev = txtd_prev + "-" + "<br/>";
+                document.getElementById("td_prev").innerHTML = txtd_prev;
+            }
+            else {
+                alert("non hai scritto un numero valido!");
+                
+            }
+        }
+        document.getElementById("in_vers").value = "";
+
+    }
+
+    function  prelevaImporto() {
+        //metto la frase ad esempio "123" dentro a saldo_current
+        var txsaldo_current = document.getElementById("sp_saldo").innerHTML;
+
+        //metto la frase ad esempio "123" dentro a importo_current
+        var tximporto_current = document.getElementById("in_prev").value;
+
+        //per trasformare il testo in numero si può moltiplicare "*" ad esempio
+        //saldo_current=saldo_current*1
+        var saldo = parseFloat(txsaldo_current);
+
+        var importo = parseFloat(tximporto_current);
+
+        //sottraggo al saldo l'importo prelevato
+        var nuovo_saldo = saldo - importo;
+
+        //vado a scrivere sulla pagina web il saldo
+        document.getElementById("sp_saldo").innerHTML = nuovo_saldo;
+
+        //cancello il valore inserito nella casella versamenti
+        document.getElementById("in_prev").value = "";
+
+        //costruisco la lista movimenti nella tabella, prelevo l'attuale contenuto della cella td_vers 
+        //successivamente concateno a quello che c'era il "-" e un tag di andata a capo <br/>
+        var txtd_vers = document.getElementById("td_vers").innerHTML;
+        txtd_vers = txtd_vers + "-" + "<br/>";
+        document.getElementById("td_vers").innerHTML = txtd_vers;
+
+        //costruisco la lista movimenti nella tabella, prelevo l'attuale contenuto della cella td_prev 
+        //successivamente concateno a quello che c'era il valore prelevato e un tag di andata a capo <br/>
+        var txtd_prev = document.getElementById("td_prev").innerHTML;
+        txtd_prev = txtd_prev + tximporto_current + "<br/>";
+        document.getElementById("td_prev").innerHTML = txtd_prev;
+    }
+
+
+function inserisciNome(){
+    var txnome = document.getElementById("in_nome").value;
     
-function  versaImporto() {
-    //metto la frase ad esempio "123" dentro a saldo_current
-    var txsaldo_current=document.getElementById("sp_saldo").innerHTML;
     
-    //metto la frase ad esempio "123" dentro a importo_current
-    var tximporto_current=document.getElementById("in_vers").value;
-    
-    //per trasformare il testo in numero si può moltiplicare "*" ad esempio
-    //saldo_current=saldo_current*1
-    var saldo=Number.parseFloat(txsaldo_current);
-    
-    var importo=Number.parseFloat(tximporto_current);
-    
-    //sommo due numeri (e non testi)
-    var nuovo_saldo= saldo+importo;
-    
-    //vado a scrivere sulla pagina web il saldo
-    document.getElementById("sp_saldo").innerHTML= nuovo_saldo;
-    
-    //cancello il valore inserito nella casella versamenti
-    document.getElementById("in_vers").value="";
+    if (txnome>""){
+        document.getElementById("sp_nome").innerHTML=txnome;
+    }    
+        
 }
- 
- function  prelevaImporto() {
-    //metto la frase ad esempio "123" dentro a saldo_current
-    var txsaldo_current=document.getElementById("sp_saldo").innerHTML;
-    
-    //metto la frase ad esempio "123" dentro a importo_current
-    var tximporto_current=document.getElementById("in_prev").value;
-    
-    //per trasformare il testo in numero si può moltiplicare "*" ad esempio
-    //saldo_current=saldo_current*1
-    var saldo=Number.parseFloat(txsaldo_current);
-    
-    var importo=Number.parseFloat(tximporto_current);
-    
-    //sommo due numeri (e non testi)
-    var nuovo_saldo= saldo-importo;
-    
-    //vado a scrivere sulla pagina web il saldo
-    document.getElementById("sp_saldo").innerHTML= nuovo_saldo;
-    
-    //cancello il valore inserito nella casella versamenti
-    document.getElementById("in_prev").value="";
-}
- 
-    
-    
+
 </script>
