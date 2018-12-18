@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>BANCA TSS</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>BANCA TSS</div>
+        <br/>
+        <div id="div_saldo">Saldo corrente: <span id="sp_saldo">0</span> €</div>
+        
+        <!-- Versamenti -->
+        <div class="versamenti"> 
+            <h3>VERSAMENTI</h3>
+            <input type="text" id="in_vers" value="" placeholder="ins. importo da versare" />
+            <button id="bt_vers" onclick="versaImporto()">
+                Versa Importo
+            </button>
+        </div>  
+        
+        <!-- Prelievi-->
+        <div class="prelievi"> 
+            <h3>PRELIEVI</h3>
+            <input type="text" id="in_prev" value="" placeholder="ins. importo da prelevare" />
+            <button id="bt_prev" onclick="prelevaImporto()">
+                Preleva Importo
+            </button>
+        </div>    
+        
+        <div id="div_notifiche" >area notifiche: <span id="sp_notif">nulla da segnalare</span></div>
+        <div id="div_mov">
+            <h3>MOVIMENTI</h3>
+            <!-- Tabella -->
+            <table border="1">
+                <!-- riga -->
+                <tr>
+                    <!-- Table header, intestazione -->
+                    <th>Versamenti</th><th>Prelievi</th>
+                </tr>
+                <tr>
+                    <!-- Prime celle dopo le intestazioni -->
+                    <td>
+                        123<br/>
+                        -<br/>
+                    </td>
+                    <td>
+                        -<br/>
+                        55<br/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
