@@ -37,24 +37,69 @@ and open the template in the editor.
         <div id="div_mov">
             <h3>MOVIMENTI</h3>
             <!-- Tabella -->
-            <table border="1">
+            <table>
                 <!-- riga -->
                 <tr>
                     <!-- Table header, intestazione -->
                     <th>Versamenti</th><th>Prelievi</th>
                 </tr>
                 <tr>
-                    <!-- Prime celle dopo le intestazioni -->
-                    <td>
-                        123<br/>
-                        -<br/>
-                    </td>
-                    <td>
-                        -<br/>
-                        55<br/>
-                    </td>
+                    <!-- contenuto del td 123<br><br/> -->
+                    <td id="td_vers"></td>
+                    <td id="td_prev"></td>
                 </tr>
             </table>
         </div>
     </body>
 </html>
+<script>
+    
+function  versaImporto() {
+    //metto la frase ad esempio "123" dentro a saldo_current
+    var txsaldo_current=document.getElementById("sp_saldo").innerHTML;
+    
+    //metto la frase ad esempio "123" dentro a importo_current
+    var tximporto_current=document.getElementById("in_vers").value;
+    
+    //per trasformare il testo in numero si può moltiplicare "*" ad esempio
+    //saldo_current=saldo_current*1
+    var saldo=Number.parseFloat(txsaldo_current);
+    
+    var importo=Number.parseFloat(tximporto_current);
+    
+    //sommo due numeri (e non testi)
+    var nuovo_saldo= saldo+importo;
+    
+    //vado a scrivere sulla pagina web il saldo
+    document.getElementById("sp_saldo").innerHTML= nuovo_saldo;
+    
+    //cancello il valore inserito nella casella versamenti
+    document.getElementById("in_vers").value="";
+}
+ 
+ function  prelevaImporto() {
+    //metto la frase ad esempio "123" dentro a saldo_current
+    var txsaldo_current=document.getElementById("sp_saldo").innerHTML;
+    
+    //metto la frase ad esempio "123" dentro a importo_current
+    var tximporto_current=document.getElementById("in_prev").value;
+    
+    //per trasformare il testo in numero si può moltiplicare "*" ad esempio
+    //saldo_current=saldo_current*1
+    var saldo=Number.parseFloat(txsaldo_current);
+    
+    var importo=Number.parseFloat(tximporto_current);
+    
+    //sommo due numeri (e non testi)
+    var nuovo_saldo= saldo-importo;
+    
+    //vado a scrivere sulla pagina web il saldo
+    document.getElementById("sp_saldo").innerHTML= nuovo_saldo;
+    
+    //cancello il valore inserito nella casella versamenti
+    document.getElementById("in_prev").value="";
+}
+ 
+    
+    
+</script>
