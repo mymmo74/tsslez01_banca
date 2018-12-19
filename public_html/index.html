@@ -15,7 +15,7 @@ and open the template in the editor.
         <br/>
         <input type="text" id="in_nome" value="" placeholder="ins. cognome e nome" />
         <button id="bt_login" onclick="inserisciNome()">
-                Login
+            Login
         </button>
         <div id="div_saldo">Saldo corrente: <span id="sp_saldo">0</span> €</div>
 
@@ -83,7 +83,7 @@ and open the template in the editor.
 
         if (isNaN(tximporto_current)) {
             alert("non hai scritto un numero, riprova!");
-            
+
         } else {
             var importo = parseFloat(tximporto_current);
             if (importo > 0) {
@@ -104,10 +104,9 @@ and open the template in the editor.
                 var txtd_prev = document.getElementById("td_prev").innerHTML;
                 txtd_prev = txtd_prev + "-" + "<br/>";
                 document.getElementById("td_prev").innerHTML = txtd_prev;
-            }
-            else {
+            } else {
                 alert("non hai scritto un numero valido!");
-                
+
             }
         }
         document.getElementById("in_vers").value = "";
@@ -125,39 +124,54 @@ and open the template in the editor.
         //saldo_current=saldo_current*1
         var saldo = parseFloat(txsaldo_current);
 
-        var importo = parseFloat(tximporto_current);
+        if (isNaN(tximporto_current)) {
+            alert("non hai scritto un numero, riprova!");
 
-        //sottraggo al saldo l'importo prelevato
-        var nuovo_saldo = saldo - importo;
+        } else {
 
-        //vado a scrivere sulla pagina web il saldo
-        document.getElementById("sp_saldo").innerHTML = nuovo_saldo;
 
+
+            var importo = parseFloat(tximporto_current);
+
+            if (importo > 0) {
+                //sottraggo al saldo l'importo prelevato
+                var nuovo_saldo = saldo - importo;
+
+                //vado a scrivere sulla pagina web il saldo
+                document.getElementById("sp_saldo").innerHTML = nuovo_saldo;
+
+
+                //costruisco la lista movimenti nella tabella, prelevo l'attuale contenuto della cella td_vers 
+                //successivamente concateno a quello che c'era il "-" e un tag di andata a capo <br/>
+                var txtd_vers = document.getElementById("td_vers").innerHTML;
+                txtd_vers = txtd_vers + "-" + "<br/>";
+                document.getElementById("td_vers").innerHTML = txtd_vers;
+
+                //costruisco la lista movimenti nella tabella, prelevo l'attuale contenuto della cella td_prev 
+                //successivamente concateno a quello che c'era il valore prelevato e un tag di andata a capo <br/>
+                var txtd_prev = document.getElementById("td_prev").innerHTML;
+                txtd_prev = txtd_prev + tximporto_current + "<br/>";
+                document.getElementById("td_prev").innerHTML = txtd_prev;
+            } else {
+                alert("non hai scritto un numero valido!");
+
+            }
+        }
+        
         //cancello il valore inserito nella casella versamenti
         document.getElementById("in_prev").value = "";
 
-        //costruisco la lista movimenti nella tabella, prelevo l'attuale contenuto della cella td_vers 
-        //successivamente concateno a quello che c'era il "-" e un tag di andata a capo <br/>
-        var txtd_vers = document.getElementById("td_vers").innerHTML;
-        txtd_vers = txtd_vers + "-" + "<br/>";
-        document.getElementById("td_vers").innerHTML = txtd_vers;
-
-        //costruisco la lista movimenti nella tabella, prelevo l'attuale contenuto della cella td_prev 
-        //successivamente concateno a quello che c'era il valore prelevato e un tag di andata a capo <br/>
-        var txtd_prev = document.getElementById("td_prev").innerHTML;
-        txtd_prev = txtd_prev + tximporto_current + "<br/>";
-        document.getElementById("td_prev").innerHTML = txtd_prev;
     }
 
 
-function inserisciNome(){
-    var txnome = document.getElementById("in_nome").value;
-    
-    
-    if (txnome>""){
-        document.getElementById("sp_nome").innerHTML=txnome;
-    }    
-        
-}
+    function inserisciNome() {
+        var txnome = document.getElementById("in_nome").value;
+
+
+        if (txnome > "") {
+            document.getElementById("sp_nome").innerHTML = txnome;
+        }
+
+    }
 
 </script>
