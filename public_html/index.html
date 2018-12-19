@@ -9,53 +9,76 @@ and open the template in the editor.
         <title>BANCA TSS</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            <!-- è il id del DIV creato in basso -->
+            #banca {
+                display:none;
+
+            }
+            #login {
+                display:block;
+
+            }
+
+        </style>
     </head>
     <body>
-        <div id="div_banca">BANCA TSS conto corrente di <span id="sp_nome"></span></div>
-        <br/>
-        <input type="text" id="in_nome" value="" placeholder="ins. cognome e nome" />
-        <button id="bt_login" onclick="inserisciNome()">
-            Login
-        </button>
-        <div id="div_saldo">Saldo corrente: <span id="sp_saldo">0</span> €</div>
+        <div id="login">
+            <h2>LOGIN</h2>
+            <input type="text" id="in_usr" placeholder="ins. username" /><br/>
+            <input type="password" id="in_pwd" placeholder="ins. password" /><br/>
+            <input type="text" id="in_tkn" placeholder="ins. token" /><br/>
+            <button onclick="loginUser()">Login</button>
+        </div>
 
-        <!-- Versamenti -->
-        <div class="versamenti"> 
-            <h3>VERSAMENTI</h3>
-            <input type="text" id="in_vers" value="" placeholder="ins. importo da versare" />
-            <button id="bt_vers" onclick="versaImporto()">
-                Versa Importo
+        <div id="banca">
+            <div id="div_banca">BANCA TSS conto corrente di <span id="sp_nome"></span></div>
+            <br/>
+            <input type="text" id="in_nome" value="" placeholder="ins. cognome e nome" />
+            <button id="bt_login" onclick="inserisciNome()">
+                Login
             </button>
-        </div>  
+            <div id="div_saldo">Saldo corrente: <span id="sp_saldo">0</span> €</div>
 
-        <!-- Prelievi-->
-        <div class="prelievi"> 
-            <h3>PRELIEVI</h3>
-            <input type="text" id="in_prev" value="" placeholder="ins. importo da prelevare" />
-            <button id="bt_prev" onclick="prelevaImporto()">
-                Preleva Importo
-            </button>
-        </div>    
+            <!-- Versamenti -->
+            <div class="versamenti"> 
+                <h3>VERSAMENTI</h3>
+                <input type="text" id="in_vers" value="" placeholder="ins. importo da versare" />
+                <button id="bt_vers" onclick="versaImporto()">
+                    Versa Importo
+                </button>
+            </div>  
 
-        <div id="div_notifiche" >area notifiche: <span id="sp_notif">nulla da segnalare</span></div>
-        <div id="div_mov">
-            <h3>MOVIMENTI</h3>
-            <!-- Tabella -->
-            <table>
-                <!-- riga -->
-                <tr>
-                    <!-- Table header, intestazione -->
-                    <th>Versamenti</th><th>Prelievi</th>
-                </tr>
-                <tr>
-                    <!-- contenuto del td 123<br><br/> -->
-                    <td id="td_vers"></td>
-                    <td id="td_prev"></td>
-                </tr>
-            </table>
+            <!-- Prelievi-->
+            <div class="prelievi"> 
+                <h3>PRELIEVI</h3>
+                <input type="text" id="in_prev" value="" placeholder="ins. importo da prelevare" />
+                <button id="bt_prev" onclick="prelevaImporto()">
+                    Preleva Importo
+                </button>
+            </div>    
+
+            <div id="div_notifiche" >area notifiche: <span id="sp_notif">nulla da segnalare</span></div>
+            <div id="div_mov">
+                <h3>MOVIMENTI</h3>
+                <!-- Tabella -->
+                <table>
+                    <!-- riga -->
+                    <tr>
+                        <!-- Table header, intestazione -->
+                        <th>Versamenti</th><th>Prelievi</th>
+                    </tr>
+                    <tr>
+                        <!-- contenuto del td 123<br><br/> -->
+                        <td id="td_vers"></td>
+                        <td id="td_prev"></td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </body>
 </html>
+
 <script>
 
     function  versaImporto() {
@@ -157,7 +180,7 @@ and open the template in the editor.
 
             }
         }
-        
+
         //cancello il valore inserito nella casella versamenti
         document.getElementById("in_prev").value = "";
 
@@ -173,5 +196,27 @@ and open the template in the editor.
         }
 
     }
+
+    function loginUser() {
+        //parametrizzare e non metterli direttamente nel IF
+        var okusr = "mimmo";
+        var okpwd = "mimmo";
+        var oktkn = "qwertyuiop";
+
+        var txusr = document.getElementById("in_usr").value;
+        var txpwd = document.getElementById("in_pwd").value;
+        var txtkn = document.getElementById("in_tkn").value;
+
+        if ((txusr == okusr && txpwd == okpwd) || txtkn == oktkn) {
+            //cosa fare se vero e quindi ok
+            alert("OK ti faccio entrare");
+            document.getElementById("banca").style.display = "block";
+            document.getElementById("login").style.display = "none";
+        } else {
+            //cosa fare se errato
+            alert("dati non validi");
+        }
+    }
+
 
 </script>
