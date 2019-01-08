@@ -102,12 +102,29 @@ and open the template in the editor.
 
         let miosaldo = 0;
 
+        let maxver = 0;
+
+
         for (i = 0; i < ar_movimenti.length; i++) {
+
+            if (ar_movimenti[i] >= 0) {
+                segno = "+";
+                colore = "black";
+            } else {
+
+                segno = "";
+                colore = "red";
+            }
+            if (ar_movimenti[i] > maxver)
+                maxver = ar_movimenti[i];
+
             // il costrutto += è come scrivere text= text+...
-            text += "<br/><b>#" + (i + 1) + "</b> --> " + ar_movimenti[i];
+            //text += "<br/><b>#" + (i + 1) + "</b> --> " + segno + ar_movimenti[i];
+            text += "<br/><b>#" + (i + 1) + "</b><font color='" + colore + "'> --> " + segno + ar_movimenti[i] + "</font>";
             miosaldo += ar_movimenti[i];
         }
         text += "<br/><b>SALDO : </b> " + miosaldo;
+        text += "<br/><b>Max versamento : </b> " + maxver;
 
 
         return text;
